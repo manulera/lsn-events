@@ -1,0 +1,56 @@
+name: Render TSV from Issue
+
+on:
+    issues:
+        types: [opened]
+
+permissions:
+    contents: write
+    pull-requests: write
+    issues: read
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: "3.11"
+
+            - name: Install Poetry
+              run: pip install poetry
+
+            - name: Install dependencies
+              run: poetry install --no-interaction
+
+            - name: Download TSV attachment
+              id: prepare
+              env:
+                  ISSUE_BODY: ${{ github.event.issue.body }}
+              run: python .github/scripts/prepare_issue_event.py
+
+            - name: Render event HTML
+              run: |
+                  poetry run python render.py "${{ steps.prepare.outputs.tsv_path }}" dist
+
+            - name: Create pull request
+              uses: peter-evans/create-pull-request@v6
+              with:
+                  add-paths: |
+                      data/
+                      dist/
+                  branch: issue-${{ github.event.issue.number }}-event
+                  delete-branch: true
+                  title: "Add event for issue #${{ github.event.issue.number }}"
+                  body: |
+                      Automated rendering triggered by issue #${{ github.event.issue.number }}.
+                      - TSV: ${{ steps.prepare.outputs.tsv_path }}
+                      - Event ID: ${{ steps.prepare.outputs.event_id }}
+                  commit-message: "Add rendered event for issue #${{ github.event.issue.number }}"

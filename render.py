@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import argparse
 import csv
-import os
 import re
 from pathlib import Path
 
@@ -37,7 +36,7 @@ def load_context(tsv_path: Path) -> dict[str, str]:
             if not row or not any(cell.strip() for cell in row):
                 continue
             key = row[0].strip()
-            if not key or key.lower() in {"parameter", "field", "name"}:
+            if not key:
                 continue
             value = row[1].strip() if len(row) > 1 else ""
             context[key] = value
@@ -58,12 +57,12 @@ def slugify(value: str | None, default: str) -> str:
 def build_context(tsv_path: Path) -> dict[str, object]:
     base = load_context(tsv_path)
     base.setdefault("event_id", tsv_path.stem)
+    base.setdefault("minimal", False)
     base["location"] = {
         "institution": base.get("institution"),
         "room_name": base.get("room_name"),
         "room_link": base.get("room_link"),
         "address": base.get("address"),
-        "minimal": False,
     }
     return base
 
@@ -83,15 +82,15 @@ def render_event(tsv_path: Path, output_dir: Path) -> Path:
 
     output_dir.mkdir(parents=True, exist_ok=True)
     slug = slugify(context.get("event_id"), tsv_path.stem)
-    output_path = output_dir / slug / f"{file_name}.html"
-    if not os.path.exists(output_dir / slug):
-        os.makedirs(output_dir / slug)
+    event_dir = output_dir / slug
+    event_dir.mkdir(parents=True, exist_ok=True)
+    output_path = event_dir / f"{file_name}.html"
 
     output_path.write_text(template.render(**context), encoding="utf-8")
 
     if file_name == "index":
         context2 = {**context, "minimal": True}
-        output_path2 = output_dir / slug / "minimal.html"
+        output_path2 = event_dir / "minimal.html"
         output_path2.write_text(template.render(**context2), encoding="utf-8")
     return output_path
 
