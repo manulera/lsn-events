@@ -14,7 +14,7 @@
         As usual, we will have <strong>2x20 mins talks, followed by networking</strong> over drinks and snacks:
     </p>
 
-    <p>🔧 <i>{{ speaker_1_talk_title }}</i><br>
+    <p>{{ speaker_1_emoji }} <i>{{ speaker_1_talk_title }}</i><br>
         {% if speaker_1_lab_link %}
         {{ speaker_1_name }} (<a href="{{ speaker_1_lab_link }}">{{ speaker_1_lab }} | {{ speaker_1_org }}</a>)
         {% else %}
@@ -22,7 +22,7 @@
         {% endif %}
     </p>
 
-    <p>🧪 <i>{{ speaker_2_talk_title }}</i><br>
+    <p>{{ speaker_2_emoji }} <i>{{ speaker_2_talk_title }}</i><br>
         {% if speaker_2_lab_link %}
         {{ speaker_2_name }} (<a href="{{ speaker_2_lab_link }}">{{ speaker_2_lab }} | {{ speaker_2_org }}</a>)
         {% else %}

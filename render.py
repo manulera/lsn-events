@@ -21,11 +21,9 @@ def parse_args() -> tuple[Path, Path]:
     parser.add_argument(
         "tsv", type=Path, help="Path to the TSV file (parameter/value pairs)."
     )
-    parser.add_argument(
-        "output_dir", type=Path, help="Directory to write the rendered HTML file into."
-    )
+
     args = parser.parse_args()
-    return args.tsv, args.output_dir
+    return args.tsv, Path("dist")
 
 
 def load_context(tsv_path: Path) -> dict[str, str]:
