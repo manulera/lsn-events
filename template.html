@@ -50,10 +50,11 @@
         so reception has your details.
     </p>
 
-    {% if not minimal %}
     {% if registration_link %}
     <p>➡️ Register at: <a href="{{ registration_link }}">{{ registration_link }}</a></p>
     {% endif %}
+
+    {% if not minimal %}
 
     <p>🧬 London SynBio Network is organised by Early Career Researchers and hosts monthly meetups to bring Synbio folks
         from academia and industry together, providing an informal space to share ideas and ask for advice.</p>
