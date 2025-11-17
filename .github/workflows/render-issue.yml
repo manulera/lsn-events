@@ -41,7 +41,7 @@ jobs:
               id: prepare
               env:
                   ISSUE_BODY: ${{ github.event.issue.body }}
-              run: poetry runpython prepare_issue_event.py
+              run: poetry run python prepare_issue_event.py
 
             - name: Create pull request
               id: cpr
