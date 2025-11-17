@@ -41,11 +41,7 @@ jobs:
               id: prepare
               env:
                   ISSUE_BODY: ${{ github.event.issue.body }}
-              run: python prepare_issue_event.py
-
-            - name: Render event HTML
-              run: |
-                  poetry run python render.py "${{ steps.prepare.outputs.tsv_path }}" dist
+              run: poetry runpython prepare_issue_event.py
 
             - name: Create pull request
               id: cpr
