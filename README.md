@@ -19,6 +19,7 @@ poetry run python render.py data/lsn-12.tsv dist
 
 ```bash
 poetry run python render.py data/lsn-12.tsv dist
+poetry run python build_index.py  # refresh dist/index.html
 ```
 
 ## Automation
