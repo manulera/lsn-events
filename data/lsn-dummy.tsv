@@ -1,0 +1,21 @@
+event_id	lsn-12
+event_date	Thursday the 4th of December
+event_time	18:00
+institution	Imperial
+room_name	City and Guilds Building - Room 640
+room_link	https://www.imperial.ac.uk/engineering/study/current/teaching-spaces/cagb-640/
+address	Imperial College London
+event_description	London SynBio Network is organised by Early Career Researchers and hosts monthly meetups to bring Synbio folks from academia and industry together, providing an informal space to share ideas and ask for advice.
+registration_link	https://events.humanitix.com/london-synbio-network-12
+speaker_1_name	Noah Sprent
+speaker_1_lab	Change Bio
+speaker_1_lab_link	https://changebio.uk/
+speaker_1_org	Imperial
+speaker_1_talk_title	How to build a protein
+speaker_1_emoji	🧬
+speaker_2_name	Diego Ruiz
+speaker_2_lab	Ledesma-Amaro Lab
+speaker_2_lab_link	https://rlalab.org/author/rodrigo-ledesma-amaro/
+speaker_2_org	Imperial
+speaker_2_talk_title	Engineering altruism: How metabolic exchanges shape synthetic microbial communities in bio-manufacturing
+speaker_2_emoji	💐

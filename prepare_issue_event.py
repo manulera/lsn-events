@@ -8,7 +8,7 @@ import sys
 import urllib.request
 from pathlib import Path
 
-import render
+from render import render_event
 
 
 def find_tsv_url(body: str) -> str:
@@ -19,12 +19,6 @@ def find_tsv_url(body: str) -> str:
     return match.group(1).rstrip(").,")
 
 
-def download_tsv(url: str, destination: Path) -> Path:
-    destination.parent.mkdir(parents=True, exist_ok=True)
-    urllib.request.urlretrieve(url, destination)
-    return destination
-
-
 def main() -> None:
     body = os.environ.get("ISSUE_BODY", "")
     if not body:
@@ -32,19 +26,15 @@ def main() -> None:
 
     raw_url = find_tsv_url(body)
     filename = Path(raw_url).name
-    temp_path = download_tsv(raw_url, Path("data") / filename)
+    destination = Path("data") / filename
+    if destination.exists():
+        raise RuntimeError(f"File {destination} already exists in data/")
 
-    context = render.build_context(temp_path)
-    event_id = context.get("event_id") or temp_path.stem
-    final_path = temp_path.with_name(f"{event_id}.tsv")
-    if final_path.exists() and final_path != temp_path:
-        final_path.unlink()
-    temp_path.rename(final_path)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    urllib.request.urlretrieve(raw_url, destination)
+    print(f"Downloaded {filename} to data/")
 
-    output_path = Path(os.environ["GITHUB_OUTPUT"])
-    with output_path.open("a", encoding="utf-8") as handle:
-        handle.write(f"tsv_path={final_path}\n")
-        handle.write(f"event_id={event_id}\n")
+    render_event(destination, Path("dist"))
 
 
 if __name__ == "__main__":

@@ -7,13 +7,20 @@ on:
 permissions:
     contents: write
     pull-requests: write
-    issues: read
+    issues: write
 
 jobs:
     build:
         runs-on: ubuntu-latest
 
         steps:
+            - name: Comment start
+              uses: peter-evans/create-or-update-comment@v4
+              with:
+                  issue-number: ${{ github.event.issue.number }}
+                  body: |
+                      ⚙️ Rendering workflow started for the TSV attached to this issue.
+
             - name: Checkout repository
               uses: actions/checkout@v4
               with:
@@ -34,13 +41,14 @@ jobs:
               id: prepare
               env:
                   ISSUE_BODY: ${{ github.event.issue.body }}
-              run: python .github/scripts/prepare_issue_event.py
+              run: python prepare_issue_event.py
 
             - name: Render event HTML
               run: |
                   poetry run python render.py "${{ steps.prepare.outputs.tsv_path }}" dist
 
             - name: Create pull request
+              id: cpr
               uses: peter-evans/create-pull-request@v6
               with:
                   add-paths: |
@@ -51,6 +59,13 @@ jobs:
                   title: "Add event for issue #${{ github.event.issue.number }}"
                   body: |
                       Automated rendering triggered by issue #${{ github.event.issue.number }}.
-                      - TSV: ${{ steps.prepare.outputs.tsv_path }}
-                      - Event ID: ${{ steps.prepare.outputs.event_id }}
                   commit-message: "Add rendered event for issue #${{ github.event.issue.number }}"
+
+            - name: Comment completion
+              if: always()
+              uses: peter-evans/create-or-update-comment@v4
+              with:
+                  issue-number: ${{ github.event.issue.number }}
+                  body: |
+                      ✅ Rendering workflow finished with status `${{ job.status }}`.
+                      Pull request: ${{ steps.cpr.outputs.pull-request-url || 'not created' }}
