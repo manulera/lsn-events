@@ -10,7 +10,7 @@
     <p>Hi everyone,</p>
 
     <p>
-        The next London SynBio Network event will be on the <strong>{{ event_date }}</strong>.
+        The next London SynBio Network event will be on <strong>{{ event_date }}</strong>.
         As usual, we will have <strong>2x20 mins talks, followed by networking</strong> over drinks and snacks:
     </p>
 
@@ -50,6 +50,7 @@
         so reception has your details.
     </p>
 
+    {% if not minimal %}
     {% if registration_link %}
     <p>➡️ Register at: <a href="{{ registration_link }}">{{ registration_link }}</a></p>
     {% endif %}
@@ -75,6 +76,7 @@
 
     <p>Best,</p>
     <p>🌟 The LSN organisers 🌟</p>
+    {% endif %}
 </body>
 
 </html>

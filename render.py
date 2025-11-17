@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import os
 import re
 from pathlib import Path
 
@@ -64,12 +65,18 @@ def build_context(tsv_path: Path) -> dict[str, object]:
         "room_name": base.get("room_name"),
         "room_link": base.get("room_link"),
         "address": base.get("address"),
+        "minimal": False,
     }
     return base
 
 
 def render_event(tsv_path: Path, output_dir: Path) -> Path:
     context = build_context(tsv_path)
+    if "registration_link" not in context or not context["registration_link"]:
+        context["registration_link"] = ""
+        file_name = "no_registration"
+    else:
+        file_name = "index"
     env = Environment(
         loader=FileSystemLoader(str(TEMPLATE_PATH.parent)),
         autoescape=select_autoescape(("html", "xml")),
@@ -78,8 +85,16 @@ def render_event(tsv_path: Path, output_dir: Path) -> Path:
 
     output_dir.mkdir(parents=True, exist_ok=True)
     slug = slugify(context.get("event_id"), tsv_path.stem)
-    output_path = output_dir / f"{slug}.html"
+    output_path = output_dir / slug / f"{file_name}.html"
+    if not os.path.exists(output_dir / slug):
+        os.makedirs(output_dir / slug)
+
     output_path.write_text(template.render(**context), encoding="utf-8")
+
+    if file_name == "index":
+        context2 = {**context, "minimal": True}
+        output_path2 = output_dir / slug / "minimal.html"
+        output_path2.write_text(template.render(**context2), encoding="utf-8")
     return output_path
 
 
