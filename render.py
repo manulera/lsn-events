@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import argparse
 import csv
 import re
 from pathlib import Path
@@ -10,19 +9,6 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 TEMPLATE_PATH = Path("template.html")
-
-
-def parse_args() -> tuple[Path, Path]:
-    parser = argparse.ArgumentParser(
-        description="Render a single event HTML file from a parameter/value TSV",
-        add_help=True,
-    )
-    parser.add_argument(
-        "tsv", type=Path, help="Path to the TSV file (parameter/value pairs)."
-    )
-
-    args = parser.parse_args()
-    return args.tsv, Path("dist")
 
 
 def load_context(tsv_path: Path) -> dict[str, str]:
@@ -69,11 +55,7 @@ def build_context(tsv_path: Path) -> dict[str, object]:
 
 def render_event(tsv_path: Path, output_dir: Path) -> Path:
     context = build_context(tsv_path)
-    if "registration_link" not in context or not context["registration_link"]:
-        context["registration_link"] = ""
-        file_name = "no_registration"
-    else:
-        file_name = "index"
+
     env = Environment(
         loader=FileSystemLoader(str(TEMPLATE_PATH.parent)),
         autoescape=select_autoescape(("html", "xml")),
@@ -84,20 +66,25 @@ def render_event(tsv_path: Path, output_dir: Path) -> Path:
     slug = slugify(context.get("event_id"), tsv_path.stem)
     event_dir = output_dir / slug
     event_dir.mkdir(parents=True, exist_ok=True)
-    output_path = event_dir / f"{file_name}.html"
+    output_path = event_dir / "index.html"
 
     output_path.write_text(template.render(**context), encoding="utf-8")
 
-    if file_name == "index":
-        context2 = {**context, "minimal": True}
-        output_path2 = event_dir / "minimal.html"
-        output_path2.write_text(template.render(**context2), encoding="utf-8")
+    # Minimal version for social media
+    context2 = {**context, "minimal": True}
+    output_path2 = event_dir / "minimal.html"
+    output_path2.write_text(template.render(**context2), encoding="utf-8")
+
+    # Without link for the event page
+    context3 = {**context, "minimal": True, "registration_link": ""}
+    output_path3 = event_dir / "no_registration.html"
+    output_path3.write_text(template.render(**context3), encoding="utf-8")
     return output_path
 
 
 def main() -> None:
-    tsv_path, output_dir = parse_args()
-    output_path = render_event(tsv_path, output_dir)
+
+    output_path = render_event(Path("data/lsn-12.tsv"), Path("dist"))
     print(f"Rendered {output_path}")
 
 

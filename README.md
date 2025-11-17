@@ -29,27 +29,3 @@ saves it under `data/<event_id>.tsv`, runs `render.py`, and opens a pull request
 with the newly generated HTML + TSV. Make sure the attachment follows the schema
 below so the workflow can detect the `event_id`.
 
-## TSV schema
-
-Each TSV uses a **two-column** layout:
-
-```
-parameter    value
-event_id     lsn-12
-event_date   Thursday the 4th of December
-...
-```
-
-- The first column is the parameter name (each becomes a Jinja variable).
-- The second column is the value.
-
-| Parameter | Purpose |
-| --- | --- |
-| `event_id` | Used for filenames (fallback to TSV filename if omitted). |
-| `event_date` / `event_time` | Display-ready strings (e.g. `Thursday the 4th of December`, `18:00`). |
-| `institution`, `room_name`, `room_link`, `address` | Venue details with optional directions URL. |
-| `registration_link` | CTA/link for sign-ups (optional). |
-| `event_description` | Body copy that appears beneath the schedule. |
-| `speaker_1_*`, `speaker_2_*` | Use suffixes like `name`, `org`, `lab`, `lab_link`, `emoji`, `talk_title`. |
-
-Add more parameters as needed—every entry becomes available inside the template.
