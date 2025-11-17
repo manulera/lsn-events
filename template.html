@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>London SynBio Network</title>
+</head>
+
+<body>
+    <p>Hi everyone,</p>
+
+    <p>
+        The next London SynBio Network event will be on the <strong>{{ event_date }}</strong>.
+        As usual, we will have <strong>2x20 mins talks, followed by networking</strong> over drinks and snacks:
+    </p>
+
+    <p>🔧 <i>{{ speaker_1_talk_title }}</i><br>
+        {% if speaker_1_lab_link %}
+        {{ speaker_1_name }} (<a href="{{ speaker_1_lab_link }}">{{ speaker_1_lab }} | {{ speaker_1_org }}</a>)
+        {% else %}
+        {{ speaker_1_name }} ({{ speaker_1_lab }} | {{ speaker_1_org }})
+        {% endif %}
+    </p>
+
+    <p>🧪 <i>{{ speaker_2_talk_title }}</i><br>
+        {% if speaker_2_lab_link %}
+        {{ speaker_2_name }} (<a href="{{ speaker_2_lab_link }}">{{ speaker_2_lab }} | {{ speaker_2_org }}</a>)
+        {% else %}
+        {{ speaker_2_name }} ({{ speaker_2_lab }} | {{ speaker_2_org }})
+        {% endif %}
+    </p>
+
+    <p>
+        📍 Location and time: <strong>{{ event_date }} at {{ event_time }}</strong>, {{ location.room_name }},
+        {{ location.address }}
+        {% if location.room_link %}(see <a href="{{ location.room_link }}">this link</a> to see how to get there).
+
+        {% else %}
+        .
+        {% endif %}
+
+        The event has step-free access and is open to anyone, but please
+
+        {% if registration_link %}
+        <a href="{{ registration_link }}">register</a>
+        {% else %}
+        register
+        {% endif %}
+
+        so reception has your details.
+    </p>
+
+    {% if registration_link %}
+    <p>➡️ Register at: <a href="{{ registration_link }}">{{ registration_link }}</a></p>
+    {% endif %}
+
+    <p>🧬 London SynBio Network is organised by Early Career Researchers and hosts monthly meetups to bring Synbio folks
+        from academia and industry together, providing an informal space to share ideas and ask for advice.</p>
+
+    <p>🔔 To stay updated about future events:</p>
+    <ul>
+        <li>✉️ Join our mailing list: <a href="http://eepurl.com/iU8zJw">http://eepurl.com/iU8zJw</a></li>
+        <li>🐦 Follow us on Twitter: <a href="https://twitter.com/london_synbio">https://twitter.com/london_synbio</a>
+        </li>
+        <li>🦋 Follow us on Bluesky: <a
+                href="https://bsky.app/profile/londonsynbio.bsky.social">https://bsky.app/profile/londonsynbio.bsky.social</a>
+        </li>
+        <li>🔗 Join the LinkedIn group: <a
+                href="https://www.linkedin.com/groups/13030320/">https://www.linkedin.com/groups/13030320/</a></li>
+        <li>🌐 Visit our website: <a
+                href="https://londonsynbionetwork.wordpress.com/">https://londonsynbionetwork.wordpress.com/</a></li>
+        <li>🎤 Want to give a talk in the next meeting? Register here <a
+                href="https://forms.gle/6qFiQbkTxKT12pRLu6">https://forms.gle/6qFiQbkTxKT12pRLu6</a></li>
+    </ul>
+
+    <p>Best,</p>
+    <p>🌟 The LSN organisers 🌟</p>
+</body>
+
+</html>
