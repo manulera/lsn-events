@@ -84,7 +84,7 @@ def render_index(events: list[dict[str, str]]) -> str:
         autoescape=select_autoescape(("html", "xml")),
     )
     template = env.get_template(TEMPLATE_PATH.name)
-    return template.render(events=events)
+    return template.render(events=events[::-1])
 
 
 def main() -> None:
