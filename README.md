@@ -10,6 +10,8 @@ poetry install
 poetry run python render.py data/lsn-12.tsv dist
 ```
 
+https://manulera.github.io/lsn-events/
+
 ## Usage
 
 1. Create a TSV file following the schema shown in `data/lsn-12.tsv` (one file
