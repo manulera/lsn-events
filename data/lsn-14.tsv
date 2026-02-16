@@ -1,0 +1,20 @@
+event_id	lsn-14
+event_date	Thursday the 26th of February
+event_time	18:00
+institution	Imperial
+room_name	 SHER 324 - Lecture Theatre, Imperial Sherfield Building, South Kensington
+room_link	https://docs.google.com/document/d/1PFgqArKDG3oxXfqoqM0AovWx_03o2tFoJAXzCBZ99Fo/edit?usp=sharing
+address	Imperial College London, South Kensington Campus, Sherfield Building
+registration_link	https://events.humanitix.com/london-synbio-network-14
+speaker_1_name	Lucas Coppens
+speaker_1_lab	Biofoundry
+speaker_1_lab_link	https://www.londonbiofoundry.org/
+speaker_1_org	Imperial
+speaker_1_talk_title	PromoterAtlas: decoding regulatory sequences across Gammaproteobacteria using a transformer model
+speaker_1_emoji	🧬
+speaker_2_name	Imogen Binnian
+speaker_2_lab	Resurrect Bio
+speaker_2_lab_link	https://www.resurrect.bio/
+speaker_2_org	
+speaker_2_talk_title	Resurrecting plant defence mechanisms to avoid crop pathogens
+speaker_2_emoji	🌾
