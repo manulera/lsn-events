@@ -84,7 +84,7 @@ def render_event(tsv_path: Path, output_dir: Path) -> Path:
 
 def main() -> None:
 
-    output_path = render_event(Path("data/lsn-12.tsv"), Path("dist"))
+    output_path = render_event(Path("data/lsn-15.tsv"), Path("dist"))
     print(f"Rendered {output_path}")
 
 
