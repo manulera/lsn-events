@@ -1,0 +1,20 @@
+event_id	lsn-15
+event_date	Thursday the 16th of April
+event_time	18:00
+institution	UCL
+room_name	G06 (Sir Ambrose Fleming LT) in the Roberts building 
+room_link	https://docs.google.com/document/d/1QpIexDMEvi3rACWIibE69n72WKqAJ2fcFFHK--vjrRE/edit?usp=sharing
+address	Roberts Engineering Building, University College London, London WC1E 7JE
+registration_link	https://events.humanitix.com/london-synbio-network-14
+speaker_1_name	Lise Boursinhac
+speaker_1_lab	Hollfelder Lab
+speaker_1_lab_link	https://hollfelder.bioc.cam.ac.uk/
+speaker_1_org	University of Cambridge
+speaker_1_talk_title	Removing Host-Induced Bias in Directed Evolution with a Cell-Free, Ultra-High Throughput Screening Platform.
+speaker_1_emoji	🦠
+speaker_2_name	Josh Mayne
+speaker_2_lab	Goldrick and Ceroni Labs
+speaker_2_lab_link	https://profiles.ucl.ac.uk/46716-stephen-goldrick
+speaker_2_org	UCL and Imperial College London
+speaker_2_talk_title	Deciphering Human Gene Biochemistry at Scale Using Synthetic, Homology-Free DNA
+speaker_2_emoji	🧬
